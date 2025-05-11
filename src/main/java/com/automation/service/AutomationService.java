@@ -4,11 +4,16 @@ import com.automation.model.Claim;
 import com.automation.model.Enrollment;
 import com.automation.repository.ClaimRepository;
 import com.automation.repository.EnrollmentRepository;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import java.util.List;
 
@@ -22,11 +27,44 @@ public class AutomationService {
     private EnrollmentRepository enrollmentRepository;
 
     private WebDriver driver;
+    private ExtentReports extent;
+    private ExtentTest test;
 
     public void initializeDriver() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
+    }
+
+    private void setupExtentReports() {
+        if (extent == null) {
+            ExtentSparkReporter sparkReporter = new ExtentSparkReporter("extent-report.html");
+            extent = new ExtentReports();
+            extent.attachReporter(sparkReporter);
+        }
+    }
+
+    public void loginToSauceDemo() {
+        setupExtentReports();
+        test = extent.createTest("SauceDemo Login Test");
+        try {
+            driver.get("https://www.saucedemo.com/");
+            test.log(Status.INFO, "Navigated to SauceDemo");
+            driver.findElement(By.id("user-name")).sendKeys("standard_user");
+            driver.findElement(By.id("password")).sendKeys("secret_sauce");
+            driver.findElement(By.id("login-button")).click();
+            // Check for successful login by looking for an element on the products page
+            boolean loggedIn = driver.getCurrentUrl().contains("inventory.html");
+            if (loggedIn) {
+                test.log(Status.PASS, "Login successful");
+            } else {
+                test.log(Status.FAIL, "Login failed");
+            }
+        } catch (Exception e) {
+            test.log(Status.FAIL, "Exception during login: " + e.getMessage());
+        } finally {
+            extent.flush();
+        }
     }
 
     public void processClaimById(Long claimId) {
@@ -44,6 +82,7 @@ public class AutomationService {
             System.out.println("Created Date: " + claim.getCreatedDate());
             System.out.println("Updated Date: " + claim.getUpdatedDate());
             // Add your Selenium automation logic here for claims processing
+            loginToSauceDemo();
         }
     }
 
