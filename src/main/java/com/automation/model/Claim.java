@@ -4,11 +4,14 @@ import lombok.Data;
 
 @Data
 public class Claim {
-    private Long id;
-    private String claimNumber;
+    private Long claimId;
     private String memberId;
-    private String serviceDate;
-    private Double amount;
-    private String status;
+    private String claimNumber;
+    private String claimDate;
+    private String claimStatus;
+    private Double claimAmount;
     private String providerId;
+    private String serviceType;
+    private String createdDate;
+    private String updatedDate;
 } 

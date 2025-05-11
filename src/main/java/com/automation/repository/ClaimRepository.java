@@ -18,19 +18,22 @@ public class ClaimRepository {
 
     private final RowMapper<Claim> claimRowMapper = (ResultSet rs, int rowNum) -> {
         Claim claim = new Claim();
-        claim.setId(rs.getLong("id"));
-        claim.setClaimNumber(rs.getString("claim_number"));
+        claim.setClaimId(rs.getLong("claim_id"));
         claim.setMemberId(rs.getString("member_id"));
-        claim.setServiceDate(rs.getString("service_date"));
-        claim.setAmount(rs.getDouble("amount"));
-        claim.setStatus(rs.getString("status"));
+        claim.setClaimNumber(rs.getString("claim_number"));
+        claim.setClaimDate(rs.getString("claim_date"));
+        claim.setClaimStatus(rs.getString("claim_status"));
+        claim.setClaimAmount(rs.getDouble("claim_amount"));
         claim.setProviderId(rs.getString("provider_id"));
+        claim.setServiceType(rs.getString("service_type"));
+        claim.setCreatedDate(rs.getString("created_date"));
+        claim.setUpdatedDate(rs.getString("updated_date"));
         return claim;
     };
 
-    public Claim findById(Long id) {
-        String sql = "SELECT * FROM claims WHERE id = ?";
-        return jdbcTemplate.queryForObject(sql, claimRowMapper, id);
+    public Claim findById(Long claimId) {
+        String sql = "SELECT * FROM claims WHERE claim_id = ?";
+        return jdbcTemplate.queryForObject(sql, claimRowMapper, claimId);
     }
 
     public List<Claim> findByMemberId(String memberId) {

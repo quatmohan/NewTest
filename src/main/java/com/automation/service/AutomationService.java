@@ -33,12 +33,16 @@ public class AutomationService {
         Claim claim = claimRepository.findById(claimId);
         if (claim != null) {
             System.out.println("Processing Claim:");
+            System.out.println("Claim ID: " + claim.getClaimId());
             System.out.println("Claim Number: " + claim.getClaimNumber());
             System.out.println("Member ID: " + claim.getMemberId());
-            System.out.println("Service Date: " + claim.getServiceDate());
-            System.out.println("Amount: " + claim.getAmount());
-            System.out.println("Status: " + claim.getStatus());
-            
+            System.out.println("Claim Date: " + claim.getClaimDate());
+            System.out.println("Claim Amount: " + claim.getClaimAmount());
+            System.out.println("Claim Status: " + claim.getClaimStatus());
+            System.out.println("Provider ID: " + claim.getProviderId());
+            System.out.println("Service Type: " + claim.getServiceType());
+            System.out.println("Created Date: " + claim.getCreatedDate());
+            System.out.println("Updated Date: " + claim.getUpdatedDate());
             // Add your Selenium automation logic here for claims processing
         }
     }
@@ -53,7 +57,6 @@ public class AutomationService {
             System.out.println("Plan ID: " + enrollment.getPlanId());
             System.out.println("Effective Date: " + enrollment.getEffectiveDate());
             System.out.println("Status: " + enrollment.getStatus());
-            
             // Add your Selenium automation logic here for enrollment processing
         }
     }
@@ -70,15 +73,17 @@ public class AutomationService {
         System.out.println("Total claims found: " + claims.size());
         System.out.println("\nClaim Details:");
         System.out.println("----------------------------------------");
-        
         for (Claim claim : claims) {
-            System.out.println("ID: " + claim.getId());
+            System.out.println("Claim ID: " + claim.getClaimId());
             System.out.println("Claim Number: " + claim.getClaimNumber());
             System.out.println("Member ID: " + claim.getMemberId());
-            System.out.println("Service Date: " + claim.getServiceDate());
-            System.out.println("Amount: $" + claim.getAmount());
-            System.out.println("Status: " + claim.getStatus());
+            System.out.println("Claim Date: " + claim.getClaimDate());
+            System.out.println("Claim Amount: $" + claim.getClaimAmount());
+            System.out.println("Claim Status: " + claim.getClaimStatus());
             System.out.println("Provider ID: " + claim.getProviderId());
+            System.out.println("Service Type: " + claim.getServiceType());
+            System.out.println("Created Date: " + claim.getCreatedDate());
+            System.out.println("Updated Date: " + claim.getUpdatedDate());
             System.out.println("----------------------------------------");
         }
     }
