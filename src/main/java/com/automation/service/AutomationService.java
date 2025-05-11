@@ -10,6 +10,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AutomationService {
 
@@ -23,7 +25,7 @@ public class AutomationService {
 
     public void initializeDriver() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--start-maximized");
+        options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
     }
 
@@ -59,6 +61,25 @@ public class AutomationService {
     public void closeDriver() {
         if (driver != null) {
             driver.quit();
+        }
+    }
+
+    public void printAllClaims() {
+        List<Claim> claims = claimRepository.findAll();
+        System.out.println("\n=== All Claims in Database ===");
+        System.out.println("Total claims found: " + claims.size());
+        System.out.println("\nClaim Details:");
+        System.out.println("----------------------------------------");
+        
+        for (Claim claim : claims) {
+            System.out.println("ID: " + claim.getId());
+            System.out.println("Claim Number: " + claim.getClaimNumber());
+            System.out.println("Member ID: " + claim.getMemberId());
+            System.out.println("Service Date: " + claim.getServiceDate());
+            System.out.println("Amount: $" + claim.getAmount());
+            System.out.println("Status: " + claim.getStatus());
+            System.out.println("Provider ID: " + claim.getProviderId());
+            System.out.println("----------------------------------------");
         }
     }
 } 

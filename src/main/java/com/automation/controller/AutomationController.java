@@ -32,4 +32,10 @@ public class AutomationController {
             automationService.closeDriver();
         }
     }
+
+    @GetMapping("/claims")
+    public String printAllClaims() {
+        automationService.printAllClaims();
+        return "Claims printed to console successfully";
+    }
 } 

@@ -37,4 +37,9 @@ public class ClaimRepository {
         String sql = "SELECT * FROM claims WHERE member_id = ?";
         return jdbcTemplate.query(sql, claimRowMapper, memberId);
     }
+
+    public List<Claim> findAll() {
+        String sql = "SELECT * FROM claims";
+        return jdbcTemplate.query(sql, claimRowMapper);
+    }
 } 
