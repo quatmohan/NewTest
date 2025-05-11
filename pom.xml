@@ -67,6 +67,38 @@
             <artifactId>extentreports</artifactId>
             <version>5.1.1</version>
         </dependency>
+        
+        <!-- Cucumber JUnit Platform Engine for BDD runner support -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <version>7.14.0</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- Cucumber Java for step definitions -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>7.14.0</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- Cucumber Spring for Spring context in Cucumber -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <version>7.14.0</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- JUnit Platform Suite Engine for Cucumber -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite-engine</artifactId>
+            <version>1.10.1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     
     <build>
